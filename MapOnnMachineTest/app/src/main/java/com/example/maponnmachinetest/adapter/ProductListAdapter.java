@@ -1,11 +1,14 @@
 package com.example.maponnmachinetest.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.maponnmachinetest.R;
+import com.example.maponnmachinetest.activity.ProductDetailActivity;
 import com.example.maponnmachinetest.databinding.GridListProductItemBinding;
 import com.example.maponnmachinetest.databinding.ProductListItemBinding;
 import com.example.maponnmachinetest.model.Data;
@@ -47,7 +50,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         if(isGridView){
             GridViewHolder gridviewHolder = (GridViewHolder)holder;
             gridviewHolder.listItemBinding.setProductGridList(listdata.get(position));
@@ -61,6 +64,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             } else {
                 gridviewHolder.listItemBinding.imgProduct.setBackgroundResource(R.drawable.ic_launcher_background);
             }
+
+            gridviewHolder.listItemBinding.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(context, ProductDetailActivity.class);
+                    i.putExtra("id",listdata.get(position).getProduct_id());
+                    context.startActivity(i);
+                }
+            });
         }else{
             ViewHolder viewHolder = (ViewHolder)holder;
             viewHolder.listItemBinding.setProductList(listdata.get(position));
@@ -74,6 +86,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             } else {
                 viewHolder.listItemBinding.imgProduct.setBackgroundResource(R.drawable.ic_launcher_background);
             }
+
+            viewHolder.listItemBinding.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(context, ProductDetailActivity.class);
+                    i.putExtra("id",listdata.get(position).getProduct_id());
+                    context.startActivity(i);
+                }
+            });
         }
     }
 
